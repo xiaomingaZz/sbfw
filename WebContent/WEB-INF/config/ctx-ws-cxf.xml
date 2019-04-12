@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:soap="http://cxf.apache.org/bindings/soap"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+		http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
+		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+	<!-- Import Apache CXF Bean Definition -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-http-binding.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<bean id="dataSbService" class="tdh.sjsb.impl.DataSbServiceImpl"></bean>
+	<jaxws:server id="sjsbService" serviceClass="tdh.sjsb.DataSbService"
+		address="/sjsbService.ws">
+		<jaxws:serviceBean>
+			<ref bean="dataSbService" />
+		</jaxws:serviceBean>
+	</jaxws:server>
+	
+	<bean id="dataHyService" class="tdh.sjsb.impl.DataHyServiceImpl"></bean>
+	<jaxws:server id="dataService" serviceClass="tdh.sjsb.DataHyService"
+		address="/dataService.ws">
+		<jaxws:serviceBean>
+			<ref bean="dataHyService" />
+		</jaxws:serviceBean>
+	</jaxws:server>
+	
+	<bean id="dataJgService" class="tdh.sjsb.impl.DataJgServiceImpl"></bean>
+	<jaxws:server id="sjJgService" serviceClass="tdh.sjsb.DataJgService"
+		address="/sjjgService.ws">
+		<jaxws:serviceBean>
+			<ref bean="dataJgService" />
+		</jaxws:serviceBean>
+	</jaxws:server>
+
+	<jaxws:client id="sjsbClient" serviceClass="tdh.sjsb.DataSbService"
+		address="http://127.0.0.1:8080/sbfw/service/sjsbService.ws?wsdl" />
+		
+	
+	
+<bean id="zhiliangycService" class="tdh.sjsb.impl.zhiliangycServiceImpl"></bean>
+	<jaxws:server id="zhiliangsjycService" serviceClass="tdh.sjsb.zhiliangycService"
+		address="/zhiliangsjycService.ws">
+		<jaxws:serviceBean>
+			<ref bean="zhiliangycService" />
+		</jaxws:serviceBean>
+	</jaxws:server>		
+		<jaxws:client id="zhiliangycClient" serviceClass="tdh.sjsb.zhiliangycService"
+		address="http://127.0.0.1:8080/sbfw/service/zhiliangsjycService.ws?wsdl" />
+<jaxws:client id="sjjgClient" serviceClass="tdh.sjsb.DataJgService"
+		address="http://127.0.0.1:8080/sbfw/service/sjjgService.ws?wsdl" />
+
+</beans>
